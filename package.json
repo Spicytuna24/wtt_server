@@ -1,0 +1,73 @@
+{
+  "name": "waterthetrees.com",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Team 'Water the Trees' (waterthetrees.com)",
+  "license": "CC-BY-NC-4.0",
+  "type": "module",
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ],
+  "dependencies": {
+    "@waterthetrees/tree-id": "^1.0.6",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.6.0",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "fast-csv": "^4.3.6",
+    "logform": "^2.2.0",
+    "morgan": "^1.9.1",
+    "pg-promise": "^10.6.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.5",
+    "eslint-plugin-prettier": "^4.0.0",
+    "faker": "^5.5.3",
+    "jest": "^27.0.6",
+    "nock": "^13.1.1",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.6.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add --force"
+    ],
+    "*.{json,graphql}": [
+      "prettier --write",
+      "git add --force"
+    ],
+    "*.{css,less,scss,sss}": [
+      "stylelint --fix",
+      "git add --force"
+    ]
+  },
+  "nodemonConfig": {
+    "ext": "js",
+    "ignore": [
+      "*.test.ts",
+      "db/*"
+    ],
+    "delay": "2"
+  },
+  "scripts": {
+    "start": "nodemon server/index.js local",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch --verbose",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
+    "lint:fix": "npm run lint -- --fix"
+  }
+}
