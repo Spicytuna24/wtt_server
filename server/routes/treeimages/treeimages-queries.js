@@ -68,4 +68,3 @@ export async function getImageById(image_number,id,image_filename) {
   const image = await db.one(query);
   return image;
 }
-
