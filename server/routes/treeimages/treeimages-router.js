@@ -11,20 +11,20 @@ import { create } from 'domain';
 
 const treeimagesRouter = express.Router();
 
-//Change the route to 'idk' just change from filenumber
+//TODO change URL
 treeimagesRouter.get('/treeimage/:filenumber', async (req, res) => {
-  const { idImage, tree_images } = req.query;
+  const { idImage,id,treeImages } = req.query;
 
-  if (!idImage && tree_images === 'All') {
+  if (!idImage && treeImages === 'All') {
     let foundImages = await getAllImages();
     if (!foundImages || foundImages.length === 0)
       throw new AppError(400, 'Error getting Images');
     res.status(200).json(foundImages);
   }
 
-  if (idImage) {
-    const responseImage = await getImageById(idImage);
-    if (!responseImage) throw new AppError(400, 'Error getting Image');
+  if (idImage && id) {
+    const responseImage = await getImageById(idImage && id);
+    if (!responseImage || !id) throw new AppError(400, 'Error getting Image');
     res
       .status(200)
       .json({ tree_images: responseImage });
