@@ -31,6 +31,19 @@ treeimagesRouter.get('/treeimage/:filenumber', async (req, res) => {
   }
 });
 
+treeimagesRouter.get('/treeimage/:id', async (req,res) => {
+  const { id } = req.query;
+  
+  if (id) {
+    const responseImage = await getAllImagesById(id);
+    if (!responseImage || !id) throw new AppError(400, 'Error getting Image');
+    res
+      .status(200)
+      .json({ tree_images: responseImage });
+  }
+
+});
+
 treeimagesRouter.post('/treeimage', async (req, res) => {
   const validated = await validateImage(req);
   if (!validated) throw new AppError(400, 'Error validating images');

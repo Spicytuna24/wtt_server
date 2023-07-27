@@ -15,12 +15,11 @@ const TREEIMAGES_FIELDS = `id_image as "idImage",
     image_number
     `;
 
-
 export async function createImage(data) {
   // eslint-disable-next-line no-unused-vars
-  const {imagesTBD} = data;
+  const {id_image, image_filename, image_number } = data;
 
-  const dataInSnakeCase = convertObjectKeysToSnakeCase(source);
+  const dataInSnakeCase = convertObjectKeysToSnakeCase(data);
 
   const query = `
       INSERT INTO tree_images(\${this:name})
@@ -56,7 +55,18 @@ export async function getAllImages() {
   return image;
 }
 
-export async function getImageById(image_number,id,image_filename) {
+export async function getAllImagesById(id) {
+  const query = {
+    name: 'find-images',
+    text: ` SELECT ${TREEIMAGES_FIELDS}
+      FROM tree-images
+      WHERE id = $1
+    `,
+    values: [id]
+  }; 
+}
+
+export async function getImageById(image_number,id,image_filename,) {
   const query = {
     name: 'find-image',
     text: `SELECT ${TREEIMAGES_FIELDS} 
